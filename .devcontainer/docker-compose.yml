@@ -1,5 +1,5 @@
 version: '3'
 services:
    code:
-    # See https://github.com/devcontainers/images/tree/main/src/universal
-    image: mcr.microsoft.com/devcontainers/base:bullseye
+    # See https://github.com/devcontainers/images
+    image: mcr.microsoft.com/devcontainers/base:alpine
