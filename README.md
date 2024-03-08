@@ -60,3 +60,11 @@ The `command: sleep infinity` is required if the image exits. This isn't nessesa
 `hostRequirements` ensures we launch a codespace large enough for all our services.
 
 `forwardPorts` specifies the ports our services expose and should be accessible via the `Ports` tab. 
+
+### Step 4. Rebuild and test the new Dev Container
+
+From `Command Pallette...` select the `Codespaces: Rebuild Container command.
+
+Codespaces should relaunch and start services with the ports 5000 and 5001 open.
+
+Use browser to check the services on ports 5000 and 5001 are working.
