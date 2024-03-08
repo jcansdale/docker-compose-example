@@ -1,6 +1,7 @@
 ## Using Docker Compose in a Codespace
 
 - Check the docker-compose configuration works inside the default/universal Codespace without a devcontainer.json.
+  - Open the codespace with no `devcontainer.json`.
   - Run `$ docker-compose up`
   - If this works we can go on to configure a Dev Container.
 
