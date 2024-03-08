@@ -61,7 +61,7 @@
 
 - Rebuild and test the new Dev Container
 
-  - From `Command Pallette...` select the `Codespaces: Rebuild Container command.
+  - From `Command Pallette...` select the `Codespaces: Rebuild Container` command.
 
   - Codespaces should relaunch and start services with the ports 5000 and 5001 open.
 
