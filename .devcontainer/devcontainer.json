@@ -21,7 +21,7 @@
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
 	"hostRequirements": {
-	   "cpus": 8
+	   "cpus": 4
 	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
