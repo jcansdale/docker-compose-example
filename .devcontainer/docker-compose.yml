@@ -3,3 +3,6 @@ services:
    code:
     # See https://github.com/devcontainers/images
     image: mcr.microsoft.com/devcontainers/base:alpine
+
+    # Don't shut down after the process ends.
+    command: sleep infinity
