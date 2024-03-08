@@ -2,10 +2,10 @@
 
 - Check the docker-compose configuration works inside the default/universal Codespace without a devcontainer.json.
   - Open the codespace with no `devcontainer.json`.
-  - Run `$ docker-compose up`
+  - From the `Terminal` tab run `$ docker-compose up`
   - If this works we can go on to configure a Dev Container.
 
-- Add a Docker Compose configuration that will be used by the VS Code editor.
+- Add a Docker Compose configuration that will be used by our VS Code editor.
 
   - Add a new file `.devcontainer/docker-compose.yml`.
 
@@ -20,9 +20,9 @@
 	    command: sleep infinity
 	```
 
-  - The `code` service will be used by VS Code and must contain Git and whatever languages are required by its extensions (e.g. php if you want language support when editing php files).
+  - The `code` image will be used by VS Code and must contain Git and whatever languages are required by its extensions (e.g. php if you want language support when editing php files).
 
-  - The `command: sleep infinity` is required if the image exits. This isn't nessesary when using `universal:linux` but `base:alpine` will fail without this option.
+  - The `command: sleep infinity` is required if the image doesn't sleep before exiting. This isn't nessesary when using `universal:linux` but `base:alpine` will fail without this option.
 
 - Add a Dev Container to run Docker Compose
 
