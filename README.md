@@ -1,70 +1,67 @@
 ## Using Docker Compose in a Codespace
 
-### Step 1. Check the docker-compose configuration works inside the default/universal Codespace without a devcontainer.json.
+- Check the docker-compose configuration works inside the default/universal Codespace without a devcontainer.json.
+  - Run `$ docker-compose up`
+  - If this works we can go on to configure a Dev Container.
 
-Run `$ docker-compose up`
+- Add a Docker Compose configuration that will be used by the VS Code editor.
 
-If this works we can go on to configure a Dev Container.
+  - Add a new file `.devcontainer/docker-compose.yml`.
 
-### Step 2. Add a Docker Compose configuration that will be used by the VS Code editor.
+	```yaml
+	version: '3'
+	services:
+	   code:
+	    # See https://github.com/devcontainers/images
+	    image: mcr.microsoft.com/devcontainers/universal:linux
+	
+	    # Don't shut down after the process ends.
+	    command: sleep infinity
+	```
 
-Add a new file `.devcontainer/docker-compose.yml`.
+  - The `code` service will be used by VS Code and must contain Git and whatever languages are required by its extensions (e.g. php if you want language support when editing php files).
 
-```yaml
-version: '3'
-services:
-   code:
-    # See https://github.com/devcontainers/images
-    image: mcr.microsoft.com/devcontainers/universal:linux
+  - The `command: sleep infinity` is required if the image exits. This isn't nessesary when using `universal:linux` but `base:alpine` will fail without this option.
 
-    # Don't shut down after the process ends.
-    command: sleep infinity
-```
+- Add a Dev Container to run Docker Compose
 
-The `code` service will be used by VS Code and must contain Git and whatever languages are required by its extensions (e.g. php if you want language support when editing php files).
+  - Add a new `.devcontainer/devcontainer.json` file.
 
-The `command: sleep infinity` is required if the image exits. This isn't nessesary when using `universal:linux` but `base:alpine` will fail without this option.
+	```json
+	 {
+		"name": "Existing Docker Compose",
+	
+		"dockerComposeFile": [
+			"../docker-compose.yml",
+			"docker-compose.yml"
+		],
+	
+		"service": "code",
+	
+		"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	
+		"hostRequirements": {
+		   "cpus": 4
+		},
+	
+		"forwardPorts": [5000, 5001]
+	}
+	```
 
-### Step 3. Add a Dev Container to run Docker Compose
+  - `dockerComposeFile` points to our original `../docker-compose.yml` file and the new `docker-compose.yml` which contains the `code` service that will be used by VS Code.
 
- Add a new `.devcontainer/devcontainer.json` file.
+  - `service` specifies the `code` service whoch will be used by VS Code.
 
-```json
- {
-	"name": "Existing Docker Compose",
+  - `workspaceFolder` points to the base of our repo. This should be optional, but ugly warnings appear if it's missing.
 
-	"dockerComposeFile": [
-		"../docker-compose.yml",
-		"docker-compose.yml"
-	],
+  - `hostRequirements` ensures we launch a codespace large enough for all our services.
 
-	"service": "code",
+  - `forwardPorts` specifies the ports our services expose and should be accessible via the `Ports` tab. 
 
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+- Rebuild and test the new Dev Container
 
-	"hostRequirements": {
-	   "cpus": 4
-	},
+  - From `Command Pallette...` select the `Codespaces: Rebuild Container command.
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [5000, 5001]
-}
-```
+  - Codespaces should relaunch and start services with the ports 5000 and 5001 open.
 
-`dockerComposeFile` points to our original `../docker-compose.yml` file and the new `docker-compose.yml` which contains the `code` service that will be used by VS Code.
-
-`service` specifies the `code` service whoch will be used by VS Code.
-
-`workspaceFolder` points to the base of our repo. This should be optional, but ugly warnings appear if it's missing.
-
-`hostRequirements` ensures we launch a codespace large enough for all our services.
-
-`forwardPorts` specifies the ports our services expose and should be accessible via the `Ports` tab. 
-
-### Step 4. Rebuild and test the new Dev Container
-
-From `Command Pallette...` select the `Codespaces: Rebuild Container command.
-
-Codespaces should relaunch and start services with the ports 5000 and 5001 open.
-
-Use browser to check the services on ports 5000 and 5001 are working.
+  - Use browser to check the services on ports 5000 and 5001 are working.
