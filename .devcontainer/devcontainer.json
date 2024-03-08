@@ -14,8 +14,6 @@
 	// use. Update this value and .devcontainer/docker-compose.yml to the real service name.
 	"service": "code",
 
-	"overrideCommand": true,
-	
 	// The optional 'workspaceFolder' property is the path VS Code should open by default when
 	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
